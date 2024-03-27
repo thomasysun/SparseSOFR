@@ -1,0 +1,28 @@
+Package: SparseSOFR
+Title: Scalar-on-function regression with sparse, noisy functional covariate
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Thomas",
+           family = "Sun",
+           role = c("aut", "cre"),
+           email = "tomysun123@gmail.com",
+           comment = c(ORCID = "0000-0002-5385-5083"))
+Description: Implements Bayesian scalar-on-function regression with sparse, noisy functional covariate.
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports:
+    Rfast,
+    MASS,
+    mgcv,
+    stats,
+    fdapace,
+    truncdist,
+    coda,
+    fields
+License: GPL (>= 3)
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr
