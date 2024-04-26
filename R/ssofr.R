@@ -8,7 +8,7 @@
 #'
 #' @param y vector of scalar responses.
 #' @param x matrix of functional responses. Each column corresponds to one function and each row is a measurement at a single time point on a common grid. May contain NAs.
-#' @param w design matrix of scalar covariates using `model.matrix`. If w is not NULL, it should include column of 1s for the intercept.
+#' @param w design matrix of scalar covariates using `model.matrix`. If w is not \code{NULL}, it should include column of 1s for the intercept.
 #' @param Tau vector specifying common grid of time points on which function is observed.
 #' @param K number of basis functions in factor model.
 #' @param Kphi number of basis functions for functional coefficient.
@@ -21,6 +21,7 @@
 #' * phi_post: posterior draws of the functional coefficient
 #' * alpha_post: posterior draws of the scalar coefficients
 #' * sig_ey_post: posterior draws of the scalar response error variance
+#' * Tau: vector of time points from input
 #' @export
 #'
 #' @importFrom stats poly rgamma rnorm dgamma dunif fitted median quantile rexp runif sd splinefun
@@ -359,7 +360,8 @@ ssofr <- function(y, x, w = NULL, Tau, K = 10, Kphi = 15, S = 2000, S_burn = 100
                  # Fmat_post = Fmat_post,
                  # muf_post = muf_post,
                  # BetaPsiJ_post = BetaPsiJ_post,
-                 sig_ey_post = sig_ey_post
+                 sig_ey_post = sig_ey_post,
+                 Tau = Tau
   )
   class(output) <- c('list', 'ssofr')
   return(output)

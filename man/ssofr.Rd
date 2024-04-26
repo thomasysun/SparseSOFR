@@ -13,7 +13,6 @@ ssofr(
   Kphi = 15,
   S = 2000,
   S_burn = 1000,
-  sparse = TRUE,
   showprogress = TRUE
 )
 }
@@ -22,7 +21,7 @@ ssofr(
 
 \item{x}{matrix of functional responses. Each column corresponds to one function and each row is a measurement at a single time point on a common grid. May contain NAs.}
 
-\item{w}{design matrix of scalar covariates using \code{model.matrix}. It should include column of 1s for the intercept.}
+\item{w}{design matrix of scalar covariates using \code{model.matrix}. If w is not \code{NULL}, it should include column of 1s for the intercept.}
 
 \item{Tau}{vector specifying common grid of time points on which function is observed.}
 
@@ -34,14 +33,16 @@ ssofr(
 
 \item{S_burn}{number of initial MCMC iterations to discard for warm-up.}
 
-\item{sparse}{set to TRUE if functions considered sparsely observed.}
-
 \item{showprogress}{show progress of MCMC algorithm. Defaults to TRUE.}
 }
 \value{
 A list with the following elements:
 \itemize{
-\item X: the inputted design matrix
+\item betaf_post: posterior draws of the fitted functional covariates
+\item phi_post: posterior draws of the functional coefficient
+\item alpha_post: posterior draws of the scalar coefficients
+\item sig_ey_post: posterior draws of the scalar response error variance
+\item Tau: vector of time points from input
 }
 }
 \description{

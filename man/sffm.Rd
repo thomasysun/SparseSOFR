@@ -4,12 +4,14 @@
 \alias{sffm}
 \title{Sparse functional factor model}
 \usage{
-sffm(Ym, K = 10, S = 2000, S_burn = S/2, sparse = TRUE)
+sffm(Ym, K = 10, Tau = 1:nrow(Ym), S = 2000, S_burn = S/2, sparse = TRUE)
 }
 \arguments{
 \item{Ym}{matrix of functional responses. Each column corresponds to one function and each row is a measurement at a single time point on a common grid. May contain NAs.}
 
 \item{K}{number of basis functions.}
+
+\item{Tau}{optional vector specifying common grid of time points on which function is observed.}
 
 \item{S}{number of total MCMC iterations}
 
@@ -24,5 +26,5 @@ A list with the following elements:
 }
 }
 \description{
-Performs MCMC estimation for Bayesian functional factor model.
+Performs MCMC estimation of Bayesian functional factor model for sparsely observed curves.
 }

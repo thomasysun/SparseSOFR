@@ -4,10 +4,11 @@
 
 #' Sparse functional factor model
 #'
-#' Performs MCMC estimation for Bayesian functional factor model.
+#' Performs MCMC estimation of Bayesian functional factor model for sparsely observed curves.
 #'
 #' @param Ym matrix of functional responses. Each column corresponds to one function and each row is a measurement at a single time point on a common grid. May contain NAs.
 #' @param K number of basis functions.
+#' @param Tau optional vector specifying common grid of time points on which function is observed.
 #' @param S number of total MCMC iterations
 #' @param S_burn number of initial MCMC iterations to discard for warm-up
 #' @param sparse set to TRUE if functions considered sparsely observed.
@@ -17,7 +18,7 @@
 #' @export
 #'
 #' @importFrom stats poly rgamma rnorm dgamma dunif fitted median quantile rexp runif sd splinefun
-sffm <- function(Ym, K = 10, S = 2000, S_burn = S/2, sparse = TRUE){
+sffm <- function(Ym, K = 10, Tau = 1:nrow(Ym), S = 2000, S_burn = S/2, sparse = TRUE){
 
 n <- ncol(Ym)
 Tn <- nrow(Ym)
@@ -235,10 +236,11 @@ for(i in (S_burn+1):S){
 
 output <- list(betaf_post = betaf_post,
                muf_post = muf_post,
+               Tau = Tau
                # Y_post = Y_post,
                # Fmat_post = Fmat_post
                )
-class(output) <- c('list', 'sffm')
+class(output) <- c('list', 'ssofr')
 return(output)
 
 }
