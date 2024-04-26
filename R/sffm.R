@@ -47,12 +47,10 @@ B <- splineInfo$Bmat
 Lm <- ncol(B)
 
 K = ncol(Beta)
-# theta <- t(Beta)
-# Yna = t(Ym)
-# any.missing = any(is.na(Yna))
 
 Y = inits$Y0
 
+# Initialize MCMC
 Fmat = B %*% Psi
 BetaPsit = tcrossprod(Beta, Psi)
 Btheta = tcrossprod(BetaPsit, B)
@@ -66,10 +64,6 @@ tau_f_k = apply(Psi, 2, function(x) (ncol(B) -
 
 H <- list()
 l_mu0 <- matrix(NA, nrow = K, ncol = n)
-
-# BtCon = NULL
-# X = NULL
-# X = cbind(rep(1, T), X)
 
 
 mu <- rowMeans(solve(crossprod(Fmat))%*%crossprod(Fmat,t(Y)))
@@ -114,15 +108,13 @@ progress <- floor(seq(1, S, length.out= 11))
 s1t1 <- Sys.time()
 for(s in 1:S){
 
+  # Sample loading curve parameters
   tau_f_k <- sample_lambda(tau_f_k, Psi, Omega = splineInfo$Omega,
                            d = d, uniformPrior = FALSE, orderLambdas = FALSE)
 
   sflc <- sampleFLCs(bzzy, Beta = Beta, Psi, bzzb, splineInfo$Omega, tau_f_k, sigma_e = sig_e)
 
   Psi <- sflc[[1]]
-
-  # Psi <- fdlm_flc(BtY = BtY, Beta = Beta, Psi = Psi,
-  #                 BtB = BtB, Omega = splineInfo$Omega, lambda = tau_f_k, sigmat2 = sig_e)
 
   mu <- mu*sflc[[2]]
   theta <- theta*sflc[[2]]
@@ -131,6 +123,8 @@ for(s in 1:S){
 
   fzzf <- lapply(1:n, function(i) crossprod(Fmat[!nas[,i],]))
 
+
+  # Sample factor model coefficients
   Q <- list()
   l <- list()
   for(i in 1:n){
@@ -164,9 +158,9 @@ for(s in 1:S){
 
   Y <- matrix(rnorm(length(Ym), (thetaf + c(muf)), sqrt(sig_e)), nrow = Tn, ncol = n)
 
+
+  # Sample variance parameters and multiplicative gamma process
   sig_e <- 1/rgamma(1, nobs/2, rate = sum((Ym - thetaf - c(muf) )^2, na.rm = TRUE)/2)
-  # sig_theta <- 1/rgamma(K, .1 + n*K, .1 + rowSums(theta^2)/2)
-  # sig_mu <- 1/rgamma(1, .1 + K, .1 + sum(mu^2)/2)
 
   delta_mu = sampleMGP(theta.jh = matrix(mu, ncol = K),
                        delta.h = delta_mu, a1 = a1_mu, a2 = a2_mu)
@@ -207,9 +201,6 @@ for(s in 1:S){
                                     log = TRUE)
   }, lower = 2, upper = 128)
 
-  # matplot((Ym )[,1:4], type = "p")
-  # matplot((thetaf + c(muf))[,1:4], type = "l", add = T)
-
   if(s > S_burn){
     sk <- s - S_burn
 
@@ -242,14 +233,12 @@ for(i in (S_burn+1):S){
   muf_post[,i-S_burn] <- (Fmat_post[[i-S_burn]])%*%(mu_post[[i-S_burn]])
 }
 
-output <- list(beta_post = beta_post,
-               mu_post = mu_post,
-               betaf_post = betaf_post,
+output <- list(betaf_post = betaf_post,
                muf_post = muf_post,
-               Y_post = Y_post,
-               Fmat_post = Fmat_post
+               # Y_post = Y_post,
+               # Fmat_post = Fmat_post
                )
-
+class(output) <- c('list', 'sffm')
 return(output)
 
 }
