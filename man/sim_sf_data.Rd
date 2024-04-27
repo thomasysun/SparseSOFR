@@ -4,7 +4,7 @@
 \alias{sim_sf_data}
 \title{Simulated Functional Data}
 \usage{
-sim_sf_data(N, Tn, K = 4, sig_noise = 1e-07, sig_alpha = 1, seed = NULL)
+sim_sf_data(N, Tn, K = 4, sig_noise = 0.01, sig_alpha = 1, seed = NULL)
 }
 \arguments{
 \item{N}{number of subjects.}
@@ -22,8 +22,8 @@ sim_sf_data(N, Tn, K = 4, sig_noise = 1e-07, sig_alpha = 1, seed = NULL)
 \value{
 list with the following elements:
 \itemize{
-\item Y: simulated functional data with noise
-\item Y_true: simulated true functional data
+\item X: simulated functional data with noise
+\item X_true: simulated true functional data
 \item B: true basis used to generate functions
 }
 }

@@ -4,7 +4,7 @@
 
 #' Plot output from ssofr object
 #'
-#' Plots summary of SOFR model or sparse curve fitting model using the MCMC draws from \code{ssofr} or \code{sffm}.
+#' Plots summary of SOFR model or sparse curve fitting model using the MCMC draws from \code{ssofr()} or \code{sffm()}.
 #'
 #' @param x \code{ssofr} object
 #' @param levels lower and upper quantiles for the credible intervals

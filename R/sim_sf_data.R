@@ -14,13 +14,13 @@
 #' @param seed (optional) sets the seed.
 #'
 #' @return list with the following elements:
-#' * Y: simulated functional data with noise
-#' * Y_true: simulated true functional data
+#' * X: simulated functional data with noise
+#' * X_true: simulated true functional data
 #' * B: true basis used to generate functions
 #' @export
 #'
 #' @importFrom stats poly rnorm
-sim_sf_data <- function(N, Tn, K = 4, sig_noise = 1e-7, sig_alpha = 1, seed = NULL){
+sim_sf_data <- function(N, Tn, K = 4, sig_noise = .01, sig_alpha = 1, seed = NULL){
 
   tau <- seq(0, 1, by = 1/(Tn-1))
 
@@ -39,13 +39,13 @@ sim_sf_data <- function(N, Tn, K = 4, sig_noise = 1e-7, sig_alpha = 1, seed = NU
 
   noise <- matrix(rnorm(N*Tn, mean = 0, sd = sqrt(sig_noise)), nrow = Tn, ncol = N)
 
-  Y_true <- alphaf_true
+  X_true <- alphaf_true
 
-  Y <- Y_true + noise
+  X <- X_true + noise
 
 
-  simdata <- list(Y = Y,
-                  Y_true = Y_true,
+  simdata <- list(X = X,
+                  X_true = X_true,
                   B = B)
 
   return(simdata)

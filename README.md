@@ -15,7 +15,7 @@ x_i(\tau) = X_i(\tau)  + \epsilon_{xi}(\tau) \\
 = \sum^{K}_{k=1}f_k(\tau_{})\beta_{k,i} + \epsilon_{xi}(\tau) ,  \quad  \epsilon_{xi}(\tau) \overset{iid}{\sim} N(0, \sigma^2_{\epsilon_x})
 $$
 
-$y_i$ is a scalar response variable, $\boldsymbol{w}_i$ contains scalar covariates with intercept $\alpha_0$ and coefficients $\boldsymbol{\alpha} = \{\alpha_1, \dots, \alpha_L\}^{\prime}$, and $\tilde{X}_i(\tau)$ is the functional covariate with functional coefficient $\phi(\tau)$. The coefficient $\phi(\tau)$ explains the effect of the functional predictor at $\tau$ on the response value. 
+$y_i$ is a scalar response variable, $\boldsymbol{w}_i$ contains scalar covariates with intercept $\alpha_0$ and coefficients $\boldsymbol{\alpha} = \{\alpha_1, \dots, \alpha_L\}^{\prime}$, and $X_i(\tau)$ is the functional covariate with functional coefficient $\phi(\tau)$. The coefficient $\phi(\tau)$ explains the effect of the functional predictor at $\tau$ on the response value. 
 
 In practice, we do not get to observe the functional covariate $X_i(\tau)$, rather we observe the discrete vector of noisy measurements of a function, $x_i$. We use a functional mixed effects model to pool sparse observations for curve fitting. A functional factor model is used to model the unknown basis functions, which allows for estimating high sparse functional observations in a data-driven fashion and incorporates uncertainty about the unknown basis.
 
@@ -38,5 +38,8 @@ The primary function `ssofr()` runs the scalar-on-function regression model. It 
 - `Tau` : vector specifying common grid of time points on which function is observed.
 
 Scalar covariates may also be added via a design matrix `w`. See documentation for full details.
+
+Sparse and/or noisy curves may also be fit in a standalone model using `sffm()`.
+
 
 

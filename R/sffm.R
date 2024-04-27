@@ -17,6 +17,15 @@
 #' * X: the inputted design matrix
 #' @export
 #'
+#' @examples
+#' n <- 50
+#' Tn <- 100
+#' simdata <- sim_sf_data(n, Tn)
+#'
+#' m1 <- sffm(simdata$X)
+#'
+#' plot(m1)
+#'
 #' @importFrom stats poly rgamma rnorm dgamma dunif fitted median quantile rexp runif sd splinefun
 sffm <- function(Ym, K = 10, Tau = 1:nrow(Ym), S = 2000, S_burn = S/2, sparse = TRUE){
 

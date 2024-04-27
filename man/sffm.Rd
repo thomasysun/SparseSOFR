@@ -28,3 +28,13 @@ A list with the following elements:
 \description{
 Performs MCMC estimation of Bayesian functional factor model for sparsely observed curves.
 }
+\examples{
+n <- 50
+Tn <- 100
+simdata <- sim_sf_data(n, Tn)
+
+m1 <- sffm(simdata$X)
+
+plot(m1)
+
+}
